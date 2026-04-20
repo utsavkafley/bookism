@@ -1,68 +1,171 @@
-.book-card {
+/* -------- Shelf variant (desktop) -------- */
+.book-card-shelf {
   display: flex;
-  gap: 16px;
-  padding: 12px;
-  border-radius: var(--radius);
+  flex-direction: column;
+  align-items: center;
+  width: 130px;
   color: inherit;
-  transition: background 0.15s;
+  transition: transform 0.2s ease;
 }
 
-.book-card:hover {
-  background: var(--accent-bg);
+.book-card-shelf:hover {
+  transform: translateY(-4px);
   color: inherit;
 }
 
-.book-cover {
-  flex-shrink: 0;
-  width: 60px;
-  height: 90px;
-  border-radius: 4px;
+.shelf-book {
+  width: 110px;
+  height: 170px;
+  border-radius: 2px 4px 4px 2px;
   overflow: hidden;
   background: var(--bg-card);
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow-book);
+  position: relative;
+  /* Slight 3D tilt: left edge darker (book pages visible) */
+  background-image: linear-gradient(
+    to right,
+    rgba(26, 23, 48, 0.18) 0,
+    rgba(26, 23, 48, 0.05) 3px,
+    transparent 6px
+  );
 }
 
-.book-cover img {
+.shelf-book img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
 }
 
-.cover-placeholder {
+.shelf-spine {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--cobalt-deep), var(--magenta));
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 14px 10px;
+  text-align: left;
+}
+
+.spine-title {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 1.25;
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.spine-author {
+  font-size: 11px;
+  opacity: 0.85;
+  letter-spacing: 0.02em;
+}
+
+.shelf-caption {
+  margin-top: 10px;
+  text-align: center;
+  width: 100%;
+  padding: 0 4px;
+}
+
+.shelf-title {
+  font-family: var(--serif);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.shelf-author {
+  margin-top: 2px;
+  font-size: 11px;
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* -------- List variant (mobile) -------- */
+.book-card-list {
+  display: flex;
+  gap: 14px;
+  padding: 10px;
+  border-radius: var(--radius);
+  color: inherit;
+  transition: background 0.15s;
+}
+
+.book-card-list:hover {
+  background: var(--accent-bg);
+  color: inherit;
+}
+
+.bcl-cover {
+  flex-shrink: 0;
+  width: 52px;
+  height: 78px;
+  border-radius: 3px;
+  overflow: hidden;
+  background: var(--bg-card);
+  box-shadow: var(--shadow-book);
+}
+
+.bcl-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.bcl-cover-placeholder {
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
-  color: var(--text-muted);
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--accent);
   background: var(--accent-bg);
 }
 
-.book-info {
+.bcl-info {
   flex: 1;
   min-width: 0;
+  padding-top: 2px;
 }
 
-.book-info h3 {
+.bcl-info h3 {
+  font-family: var(--serif);
   font-size: 16px;
-  margin-bottom: 4px;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-weight: 500;
+  margin-bottom: 2px;
+  line-height: 1.25;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-.book-info .author {
-  font-size: 14px;
-  color: var(--text-muted);
-  margin: 0 0 4px;
-}
-
-.book-info .year {
+.bcl-info .author {
   font-size: 13px;
   color: var(--text-muted);
+  margin: 0 0 2px;
+}
+
+.bcl-info .year {
+  font-size: 12px;
+  color: var(--text-muted);
   margin: 0;
+  font-family: var(--mono);
 }

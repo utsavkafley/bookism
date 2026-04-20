@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import FRONTEND_URL
-from app.routers import auth, books, search
+from app.routers import auth, books, search, posts
 
 app = FastAPI(title="Bookism API")
 
@@ -17,6 +17,7 @@ app.add_middleware(
 app.include_router(auth.router)
 app.include_router(books.router)
 app.include_router(search.router)
+app.include_router(posts.router)
 
 
 @app.get("/health")

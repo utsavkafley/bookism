@@ -1,41 +1,43 @@
 :root {
-  --text: #4a4458;
-  --text-heading: #1a1625;
-  --text-muted: #8a8494;
-  --bg: #faf9fc;
-  --bg-card: #ffffff;
-  --border: #e8e6ed;
-  --accent: #6b4c9a;
-  --accent-light: #8b6fbf;
-  --accent-bg: rgba(107, 76, 154, 0.08);
+  /* Palette — pulled from logo */
+  --cobalt: #2639c7;
+  --cobalt-deep: #1a2a99;
+  --magenta: #e83fa3;
+  --ink: #1a1730;
+  --ink-muted: #5b5770;
+  --ink-faint: #8a8598;
+  --cream: #f7f2e8;
+  --cream-card: #fffbf2;
+  --line: #e5dcc8;
   --danger: #c0392b;
-  --radius: 8px;
-  --shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-sm: 0 1px 2px rgba(26, 23, 48, 0.06);
+  --shadow-md: 0 4px 12px rgba(26, 23, 48, 0.08);
+  --shadow-book: 2px 4px 10px rgba(26, 23, 48, 0.15);
 
-  --sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  /* Derived */
+  --accent: var(--cobalt);
+  --accent-deep: var(--cobalt-deep);
+  --accent-bg: rgba(38, 57, 199, 0.08);
+  --text: var(--ink);
+  --text-muted: var(--ink-muted);
+  --text-heading: var(--ink);
+  --bg: var(--cream);
+  --bg-card: var(--cream-card);
+  --border: var(--line);
+  --radius: 6px;
+  --radius-sm: 4px;
+  --radius-lg: 10px;
+
+  /* Type */
+  --serif: 'Fraunces', 'Source Serif Pro', Georgia, serif;
+  --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --mono: ui-monospace, 'SF Mono', Consolas, monospace;
 
-  font: 16px/1.5 var(--sans);
-  color-scheme: light dark;
+  font: 16px/1.55 var(--sans);
+  color-scheme: light;
   color: var(--text);
   background: var(--bg);
   -webkit-font-smoothing: antialiased;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #b8b0c8;
-    --text-heading: #ede8f5;
-    --text-muted: #7a7488;
-    --bg: #131118;
-    --bg-card: #1c1a24;
-    --border: #2e2b38;
-    --accent: #a78bdb;
-    --accent-light: #c4aaef;
-    --accent-bg: rgba(167, 139, 219, 0.1);
-    --danger: #e74c3c;
-    --shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-  }
 }
 
 *,
@@ -46,51 +48,81 @@
 
 body {
   margin: 0;
+  background:
+    radial-gradient(ellipse at top, rgba(38, 57, 199, 0.03), transparent 60%),
+    var(--bg);
+  min-height: 100dvh;
 }
 
 #root {
-  max-width: 960px;
+  max-width: 1040px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 24px;
   min-height: 100dvh;
 }
 
 @media (max-width: 600px) {
   #root {
-    padding: 0 14px;
+    padding: 0 16px;
   }
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--serif);
   color: var(--text-heading);
   font-weight: 600;
+  letter-spacing: -0.01em;
   margin: 0;
+  line-height: 1.15;
+}
+
+h1 {
+  font-size: 32px;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-size: 26px;
+}
+
+h3 {
+  font-size: 19px;
 }
 
 a {
   color: var(--accent);
   text-decoration: none;
+  transition: color 0.15s;
 }
 
 a:hover {
-  color: var(--accent-light);
+  color: var(--magenta);
 }
 
 button {
   font: inherit;
+  font-family: var(--sans);
   cursor: pointer;
   border: none;
   border-radius: var(--radius);
-  padding: 8px 16px;
-  transition: opacity 0.15s;
+  padding: 8px 14px;
+  background: none;
+  color: var(--text);
+  transition: background 0.15s, color 0.15s, opacity 0.15s;
 }
 
 button:hover {
-  opacity: 0.85;
+  opacity: 0.9;
 }
 
-input {
+input,
+select,
+textarea {
   font: inherit;
+  font-family: var(--sans);
   padding: 8px 12px;
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -98,7 +130,14 @@ input {
   color: var(--text);
 }
 
-input:focus {
+input:focus,
+select:focus,
+textarea:focus {
   outline: 2px solid var(--accent);
   outline-offset: 1px;
+}
+
+::selection {
+  background: var(--magenta);
+  color: var(--cream);
 }

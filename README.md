@@ -104,38 +104,14 @@ Search
 /search             → Search Open Library, add books
 ```
 
-## MVP Milestones
-
-### Phase 1 — Foundation
-- [ ] Initialize React + TypeScript project with Tailwind
-- [ ] Initialize FastAPI project with SQLAlchemy + PostgreSQL
-- [ ] Set up Google OAuth flow (FE + BE)
-- [ ] Deploy skeleton to Vercel + Render
-
-### Phase 2 — Core Loop
-- [ ] Book search page (Open Library API integration)
-- [ ] Add book to library with status selection
-- [ ] Library view with status tabs (Currently Reading / Finished / To Read)
-- [ ] Book detail page (read-only)
-
-### Phase 3 — Notes
-- [ ] Integrate Tiptap rich-text editor on book detail page
-- [ ] Auto-save notes (debounced PATCH)
-- [ ] Notes persist as JSON in database
-
-### Phase 4 — Polish
-- [ ] Year tagging when marking a book as Finished
-- [ ] Filter finished books by year
-- [ ] Mobile-responsive layout (phone-first for note-taking)
-- [ ] Loading states, error handling, empty states
-
-### Phase 5 — Deploy & Use
-- [ ] Production environment variables
-- [ ] Custom domain (optional)
-- [ ] Final deploy and start using it
-
-## Future Ideas (Not MVP)
-- Shelves / collections / custom tags
-- Drawing connections between books and notes across topics
-- Export notes as markdown
-- Reading timeline view
+## Future Ideas
+- Searchbar should be omnipresent
+- As the user types relevant items should show on a dropdown (for e.g text "Finne" in the bar should show a list of reslts below it the top of which should be Finnegans Wake by James Joyce.) Basically we need fluid smart search. More results button should be the only time when users get take to the search page
+- The chips next to each search suggestion is not good design, we should just allow user to select the book and they can set the status in that view.
+- The text editor is fine but I need some way of separating out my thoughts, the best thing that I can think of is Jira's "comments" on tickets. That way user can have ongoing drafts on the text editor but can also save those and they persist and show chronologically under the book. That way I can revisit the same book and add distinct comments (reviews)
+- Bookism should be clickable and should use icon in frontend/src/assets/bookism-logo.png
+- Our styling needs an overhaul:
+  - remove generic components and add modern looking UI components.
+  - use a readable font with varying sizes making good use of Typography to stylize the experience.
+  - choose a color scheme of three main colors, I suggest the colors from the logo to create a fluid experience.
+  - Find a creative way to display user's shelves (hint: like stacked books)

@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
   searchBooks,
   createBook,
   type SearchResult,
-  type BookStatus,
 } from '../api/books';
 import './SearchPage.css';
 
 export default function SearchPage() {
   const navigate = useNavigate();
-  const [query, setQuery] = useState('');
+  const [params, setParams] = useSearchParams();
+  const initialQ = params.get('q') ?? '';
+  const [query, setQuery] = useState(initialQ);
   const [results, setResults] = useState<SearchResult[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -33,8 +34,8 @@ export default function SearchPage() {
     return () => clearTimeout(timer);
   }, [query]);
 
-  async function handleAdd(result: SearchResult, status: BookStatus) {
-    const key = `${result.open_library_key}-${status}`;
+  async function handleSelect(result: SearchResult) {
+    const key = result.open_library_key || result.title;
     setAdding(key);
     try {
       const book = await createBook({
@@ -45,7 +46,7 @@ export default function SearchPage() {
         page_count: result.page_count,
         publish_year: result.publish_year,
         isbn: result.isbn,
-        status,
+        status: 'to_read',
       });
       navigate(`/book/${book.id}`);
     } catch (e) {
@@ -56,13 +57,16 @@ export default function SearchPage() {
 
   return (
     <div className="search-page">
-      <h2>Search Books</h2>
+      <h2>Search Open Library</h2>
       <input
         type="text"
         placeholder="Search by title or author..."
         className="search-input"
         value={query}
-        onChange={(e) => setQuery(e.target.value)}
+        onChange={(e) => {
+          setQuery(e.target.value);
+          setParams(e.target.value ? { q: e.target.value } : {}, { replace: true });
+        }}
         autoFocus
       />
 
@@ -74,9 +78,14 @@ export default function SearchPage() {
 
       <div className="search-results">
         {results.map((r) => {
-          const baseKey = r.open_library_key || r.title;
+          const key = r.open_library_key || r.title;
           return (
-            <div key={baseKey} className="result-row">
+            <button
+              key={key}
+              className={`result-row ${adding === key ? 'adding' : ''}`}
+              onClick={() => handleSelect(r)}
+              disabled={adding !== null}
+            >
               <div className="cover">
                 {r.cover_url ? (
                   <img src={r.cover_url} alt="" loading="lazy" />
@@ -89,27 +98,8 @@ export default function SearchPage() {
                 {r.author && <p className="author">{r.author}</p>}
                 {r.publish_year && <p className="meta">{r.publish_year}</p>}
               </div>
-              <div className="actions">
-                <button
-                  disabled={adding !== null}
-                  onClick={() => handleAdd(r, 'currently_reading')}
-                >
-                  {adding === `${baseKey}-currently_reading` ? '...' : 'Reading'}
-                </button>
-                <button
-                  disabled={adding !== null}
-                  onClick={() => handleAdd(r, 'finished')}
-                >
-                  {adding === `${baseKey}-finished` ? '...' : 'Finished'}
-                </button>
-                <button
-                  disabled={adding !== null}
-                  onClick={() => handleAdd(r, 'to_read')}
-                >
-                  {adding === `${baseKey}-to_read` ? '...' : 'To Read'}
-                </button>
-              </div>
-            </div>
+              {adding === key && <span className="adding-badge">Adding...</span>}
+            </button>
           );
         })}
       </div>

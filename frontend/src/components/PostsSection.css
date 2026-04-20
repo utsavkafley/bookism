@@ -1,0 +1,139 @@
+.posts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.posts-state {
+  color: var(--text-muted);
+  font-size: 14px;
+  padding: 8px 0;
+}
+
+.posts-state.error {
+  color: var(--danger);
+}
+
+.posts-empty {
+  color: var(--text-muted);
+  font-size: 14px;
+  font-style: italic;
+  padding: 12px 0;
+}
+
+.post-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 16px 18px;
+  box-shadow: var(--shadow-sm);
+}
+
+.post-item.post-editing {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(38, 57, 199, 0.08);
+}
+
+.post-content .tiptap {
+  outline: none;
+  line-height: 1.6;
+}
+
+.post-content .tiptap > *:first-child {
+  margin-top: 0;
+}
+
+.post-content .tiptap > *:last-child {
+  margin-bottom: 0;
+}
+
+.post-content .tiptap p {
+  margin: 0 0 10px;
+}
+
+.post-content .tiptap h2 {
+  font-size: 19px;
+  margin: 14px 0 6px;
+}
+
+.post-content .tiptap ul,
+.post-content .tiptap ol {
+  padding-left: 22px;
+  margin: 0 0 10px;
+}
+
+.post-content .tiptap blockquote {
+  border-left: 3px solid var(--border);
+  padding-left: 14px;
+  margin: 10px 0;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.post-content .tiptap code {
+  background: var(--accent-bg);
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-family: var(--mono);
+  font-size: 0.9em;
+}
+
+.post-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border);
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.post-meta time {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.post-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.link-btn {
+  background: none;
+  color: var(--text-muted);
+  padding: 2px 6px;
+  font-size: 12px;
+  border-radius: 4px;
+}
+
+.link-btn:hover {
+  color: var(--accent);
+  background: var(--accent-bg);
+}
+
+.link-btn.danger:hover {
+  color: var(--danger);
+  background: rgba(192, 57, 43, 0.08);
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: var(--radius);
+}
+
+.btn-primary:hover {
+  background: var(--accent-deep);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

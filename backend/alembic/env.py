@@ -17,6 +17,7 @@ if config.config_file_name is not None:
 from app.database import Base
 from app.models.user import User
 from app.models.book import Book
+from app.models.post import Post
 from app.config import DATABASE_URL
 
 config.set_main_option("sqlalchemy.url", DATABASE_URL)

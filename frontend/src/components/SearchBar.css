@@ -1,0 +1,140 @@
+.searchbar {
+  position: relative;
+  flex: 1;
+  max-width: 440px;
+}
+
+.searchbar-input {
+  width: 100%;
+  padding: 9px 14px;
+  font-size: 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg-card);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.searchbar-input::placeholder {
+  color: var(--ink-faint);
+}
+
+.searchbar-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(38, 57, 199, 0.12);
+}
+
+.searchbar-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: 6px;
+  z-index: 100;
+  max-height: 480px;
+  overflow-y: auto;
+}
+
+.dropdown-state {
+  padding: 12px 14px;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.dropdown-item {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+  padding: 8px;
+  border-radius: var(--radius);
+  background: none;
+  text-align: left;
+  transition: background 0.1s;
+}
+
+.dropdown-item.active,
+.dropdown-item:hover {
+  background: var(--accent-bg);
+}
+
+.dd-cover {
+  flex-shrink: 0;
+  width: 32px;
+  height: 48px;
+  border-radius: 3px;
+  overflow: hidden;
+  background: var(--bg);
+  box-shadow: var(--shadow-sm);
+}
+
+.dd-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.dd-cover-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--serif);
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--accent-bg);
+  font-size: 16px;
+}
+
+.dd-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.dd-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dd-author {
+  font-size: 12px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 1px;
+}
+
+.dropdown-more {
+  width: 100%;
+  padding: 10px 12px;
+  text-align: center;
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 500;
+  border-top: 1px solid var(--border);
+  margin-top: 4px;
+  border-radius: var(--radius);
+}
+
+.dropdown-more.active,
+.dropdown-more:hover {
+  background: var(--accent-bg);
+}
+
+@media (max-width: 600px) {
+  .searchbar {
+    max-width: none;
+    width: 100%;
+  }
+}

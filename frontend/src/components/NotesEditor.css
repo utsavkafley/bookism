@@ -95,6 +95,15 @@
   font-size: 0.9em;
 }
 
+.notes-editor .editor-footer {
+  padding: 8px 12px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  background: rgba(38, 57, 199, 0.02);
+}
+
 @media (max-width: 600px) {
   .notes-editor .toolbar button {
     padding: 8px 12px;

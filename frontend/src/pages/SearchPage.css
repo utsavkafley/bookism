@@ -6,6 +6,7 @@
   width: 100%;
   padding: 12px 16px;
   font-size: 16px;
+  border-radius: var(--radius-lg);
   margin-bottom: 24px;
 }
 
@@ -29,22 +30,34 @@
   display: flex;
   gap: 16px;
   padding: 12px;
-  border-radius: var(--radius);
+  border-radius: var(--radius-lg);
   align-items: flex-start;
+  background: none;
+  text-align: left;
+  width: 100%;
+  transition: background 0.15s;
 }
 
 .result-row:hover {
   background: var(--accent-bg);
 }
 
+.result-row.adding {
+  opacity: 0.6;
+}
+
+.result-row:disabled {
+  cursor: wait;
+}
+
 .result-row .cover {
   flex-shrink: 0;
-  width: 60px;
-  height: 90px;
-  border-radius: 4px;
+  width: 56px;
+  height: 84px;
+  border-radius: 3px;
   overflow: hidden;
   background: var(--bg-card);
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow-book);
 }
 
 .result-row .cover img {
@@ -60,8 +73,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: var(--serif);
   font-size: 24px;
-  color: var(--text-muted);
+  font-weight: 600;
+  color: var(--accent);
   background: var(--accent-bg);
 }
 
@@ -71,8 +86,10 @@
 }
 
 .result-row .info h3 {
-  font-size: 16px;
-  margin-bottom: 4px;
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 500;
+  margin-bottom: 2px;
 }
 
 .result-row .info .author {
@@ -82,40 +99,17 @@
 }
 
 .result-row .info .meta {
-  font-size: 13px;
+  font-size: 12px;
+  font-family: var(--mono);
   color: var(--text-muted);
   margin: 0;
 }
 
-.result-row .actions {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  flex-shrink: 0;
-}
-
-.result-row .actions button {
-  background: var(--accent-bg);
+.adding-badge {
+  font-size: 12px;
+  font-family: var(--mono);
   color: var(--accent);
-  padding: 6px 12px;
-  font-size: 13px;
-  white-space: nowrap;
-}
-
-.result-row .actions button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-@media (max-width: 600px) {
-  .result-row {
-    flex-wrap: wrap;
-  }
-  .result-row .actions {
-    flex-direction: row;
-    width: 100%;
-  }
-  .result-row .actions button {
-    flex: 1;
-  }
+  align-self: center;
+  flex-shrink: 0;
+  padding: 0 8px;
 }

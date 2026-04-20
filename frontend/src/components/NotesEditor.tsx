@@ -9,12 +9,20 @@ type SaveState = 'idle' | 'saving' | 'saved' | 'error';
 interface Props {
   initialContent: JSONContent | null;
   onSave: (content: JSONContent) => Promise<void>;
+  footer?: (api: EditorFooterApi) => React.ReactNode;
+}
+
+export interface EditorFooterApi {
+  getContent: () => JSONContent;
+  clear: () => void;
+  isEmpty: boolean;
 }
 
 const DEBOUNCE_MS = 800;
 
-export default function NotesEditor({ initialContent, onSave }: Props) {
+export default function NotesEditor({ initialContent, onSave, footer }: Props) {
   const [saveState, setSaveState] = useState<SaveState>('idle');
+  const [isEmpty, setIsEmpty] = useState(true);
   const timerRef = useRef<number | null>(null);
   const latestContentRef = useRef<JSONContent | null>(null);
 
@@ -24,6 +32,7 @@ export default function NotesEditor({ initialContent, onSave }: Props) {
     onUpdate: ({ editor }) => {
       const json = editor.getJSON();
       latestContentRef.current = json;
+      setIsEmpty(editor.isEmpty);
       setSaveState('saving');
       if (timerRef.current) window.clearTimeout(timerRef.current);
       timerRef.current = window.setTimeout(async () => {
@@ -34,6 +43,9 @@ export default function NotesEditor({ initialContent, onSave }: Props) {
           setSaveState('error');
         }
       }, DEBOUNCE_MS);
+    },
+    onCreate: ({ editor }) => {
+      setIsEmpty(editor.isEmpty);
     },
   });
 
@@ -107,6 +119,18 @@ export default function NotesEditor({ initialContent, onSave }: Props) {
         <span className="save-status">{statusLabel(saveState)}</span>
       </div>
       <EditorContent editor={editor} className="editor-content" />
+      {footer && (
+        <div className="editor-footer">
+          {footer({
+            getContent: () => editor.getJSON(),
+            clear: () => {
+              editor.commands.clearContent();
+              setIsEmpty(true);
+            },
+            isEmpty,
+          })}
+        </div>
+      )}
     </div>
   );
 }

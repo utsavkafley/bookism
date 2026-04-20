@@ -25,7 +25,6 @@ export default function LibraryPage() {
       .finally(() => setLoading(false));
   }, [status]);
 
-  // Reset year filter when switching tabs
   useEffect(() => {
     setYearFilter(null);
   }, [status]);
@@ -88,11 +87,21 @@ export default function LibraryPage() {
             : 'No books here yet.'}
         </p>
       ) : (
-        <div className="book-list">
-          {visibleBooks.map((book) => (
-            <BookCard key={book.id} book={book} />
-          ))}
-        </div>
+        <>
+          <div className="shelf-view">
+            <div className="shelf-row">
+              {visibleBooks.map((book) => (
+                <BookCard key={book.id} book={book} variant="shelf" />
+              ))}
+            </div>
+            <div className="shelf-plank" aria-hidden="true" />
+          </div>
+          <div className="list-view">
+            {visibleBooks.map((book) => (
+              <BookCard key={book.id} book={book} variant="list" />
+            ))}
+          </div>
+        </>
       )}
     </div>
   );
