@@ -103,8 +103,3 @@ Search
 /book/:id           → Book detail page with notes editor
 /search             → Search Open Library, add books
 ```
-
-### Feature request:
-- Glitch animation should happen briefly during hover and stop.
-- Currently if I search a book and go to its view, it now automatically is in my library because we set it as ToRead, for when a user simply goes to a books section lets not add it to our To Read immediately. Idk what this means in terms of putting reviews? Or if we see that the user has added a review we immediately set it to read to current date.
-- Instead of posts call them Notes in the UI.
