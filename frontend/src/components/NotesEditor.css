@@ -1,0 +1,116 @@
+.notes-editor {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-card);
+}
+
+.notes-editor .toolbar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px;
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.notes-editor .toolbar button {
+  background: none;
+  color: var(--text);
+  padding: 4px 10px;
+  font-size: 14px;
+  border-radius: 4px;
+  min-width: 30px;
+}
+
+.notes-editor .toolbar button:hover {
+  background: var(--accent-bg);
+}
+
+.notes-editor .toolbar button.active {
+  background: var(--accent-bg);
+  color: var(--accent);
+}
+
+.notes-editor .toolbar .divider {
+  width: 1px;
+  height: 20px;
+  background: var(--border);
+  margin: 0 4px;
+}
+
+.notes-editor .save-status {
+  margin-left: auto;
+  font-size: 13px;
+  color: var(--text-muted);
+  padding-right: 8px;
+}
+
+.notes-editor .editor-content {
+  padding: 16px;
+}
+
+.notes-editor .tiptap {
+  outline: none;
+  min-height: 200px;
+  line-height: 1.6;
+}
+
+.notes-editor .tiptap p.is-editor-empty:first-child::before {
+  content: 'Start writing...';
+  color: var(--text-muted);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+.notes-editor .tiptap h2 {
+  font-size: 20px;
+  margin: 16px 0 8px;
+  color: var(--text-heading);
+}
+
+.notes-editor .tiptap p {
+  margin: 0 0 12px;
+}
+
+.notes-editor .tiptap ul,
+.notes-editor .tiptap ol {
+  padding-left: 24px;
+  margin: 0 0 12px;
+}
+
+.notes-editor .tiptap blockquote {
+  border-left: 3px solid var(--border);
+  padding-left: 16px;
+  margin: 12px 0;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.notes-editor .tiptap code {
+  background: var(--accent-bg);
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-family: var(--mono);
+  font-size: 0.9em;
+}
+
+@media (max-width: 600px) {
+  .notes-editor .toolbar button {
+    padding: 8px 12px;
+    min-width: 40px;
+    font-size: 15px;
+  }
+  .notes-editor .save-status {
+    width: 100%;
+    margin-left: 0;
+    padding: 4px 0 0;
+    text-align: right;
+  }
+  .notes-editor .editor-content {
+    padding: 12px;
+  }
+  .notes-editor .tiptap {
+    min-height: 300px;
+  }
+}

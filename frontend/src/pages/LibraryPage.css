@@ -7,7 +7,6 @@
   gap: 4px;
   margin-bottom: 24px;
   border-bottom: 1px solid var(--border);
-  padding-bottom: 0;
 }
 
 .tab {
@@ -24,8 +23,40 @@
   border-bottom-color: var(--accent);
 }
 
-.book-list.empty {
+.year-chips {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.chip {
+  background: var(--bg-card);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  padding: 4px 12px;
+  font-size: 13px;
+  border-radius: 999px;
+}
+
+.chip.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.book-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.state-msg {
   text-align: center;
   padding: 48px 0;
   color: var(--text-muted);
+}
+
+.state-msg.error {
+  color: var(--danger);
 }

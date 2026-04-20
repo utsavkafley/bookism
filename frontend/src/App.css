@@ -40,3 +40,28 @@
   height: 32px;
   border-radius: 50%;
 }
+
+.user-info button {
+  background: none;
+  color: var(--text-muted);
+  padding: 4px 8px;
+  font-size: 14px;
+}
+
+.user-info button:hover {
+  color: var(--accent);
+}
+
+@media (max-width: 600px) {
+  .app-header {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .app-header h1 {
+    font-size: 20px;
+  }
+  .app-header nav {
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+}

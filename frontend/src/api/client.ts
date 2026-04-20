@@ -16,8 +16,10 @@ export async function apiFetch<T>(
   });
 
   if (!res.ok) {
-    throw new Error(`API error: ${res.status}`);
+    const text = await res.text().catch(() => '');
+    throw new Error(text || `API error: ${res.status}`);
   }
 
+  if (res.status === 204) return undefined as T;
   return res.json();
 }
