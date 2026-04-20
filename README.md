@@ -104,14 +104,7 @@ Search
 /search             → Search Open Library, add books
 ```
 
-## Future Ideas
-- Searchbar should be omnipresent
-- As the user types relevant items should show on a dropdown (for e.g text "Finne" in the bar should show a list of reslts below it the top of which should be Finnegans Wake by James Joyce.) Basically we need fluid smart search. More results button should be the only time when users get take to the search page
-- The chips next to each search suggestion is not good design, we should just allow user to select the book and they can set the status in that view.
-- The text editor is fine but I need some way of separating out my thoughts, the best thing that I can think of is Jira's "comments" on tickets. That way user can have ongoing drafts on the text editor but can also save those and they persist and show chronologically under the book. That way I can revisit the same book and add distinct comments (reviews)
-- Bookism should be clickable and should use icon in frontend/src/assets/bookism-logo.png
-- Our styling needs an overhaul:
-  - remove generic components and add modern looking UI components.
-  - use a readable font with varying sizes making good use of Typography to stylize the experience.
-  - choose a color scheme of three main colors, I suggest the colors from the logo to create a fluid experience.
-  - Find a creative way to display user's shelves (hint: like stacked books)
+### Feature request:
+- Glitch animation should happen briefly during hover and stop.
+- Currently if I search a book and go to its view, it now automatically is in my library because we set it as ToRead, for when a user simply goes to a books section lets not add it to our To Read immediately. Idk what this means in terms of putting reviews? Or if we see that the user has added a review we immediately set it to read to current date.
+- Instead of posts call them Notes in the UI.

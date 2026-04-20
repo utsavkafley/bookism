@@ -94,7 +94,6 @@ export default function LibraryPage() {
                 <BookCard key={book.id} book={book} variant="shelf" />
               ))}
             </div>
-            <div className="shelf-plank" aria-hidden="true" />
           </div>
           <div className="list-view">
             {visibleBooks.map((book) => (

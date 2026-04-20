@@ -5,6 +5,12 @@
   min-height: 100dvh;
 }
 
+.logo-card img{
+ width: 400px;
+ height: 400px;
+}
+
+
 .login-card {
   text-align: center;
   padding: 48px;
@@ -22,10 +28,56 @@
   font-size: 18px;
 }
 
+.login-card div {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
 .google-btn {
   background: var(--accent);
   color: #fff;
   padding: 12px 24px;
   font-size: 16px;
   font-weight: 500;
+}
+
+.demo-section {
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px dashed var(--border);
+}
+
+.demo-hint {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+  font-family: var(--sans);
+}
+
+.demo-btn {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 10px 20px;
+  font-size: 14px;
+  font-family: var(--mono);
+  letter-spacing: 0.04em;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.demo-btn:hover:not(:disabled) {
+  color: var(--magenta);
+  border-color: var(--magenta);
+}
+
+.demo-btn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.demo-error {
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--danger);
 }

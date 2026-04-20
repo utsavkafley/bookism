@@ -17,7 +17,7 @@ export default function PostsSection({ posts, onPostsChange }: Props) {
   }
 
   async function handleDelete(postId: number) {
-    if (!confirm('Delete this post?')) return;
+    if (!confirm('Delete this note?')) return;
     await deletePost(postId);
     onPostsChange(posts.filter((p) => p.id !== postId));
   }
@@ -25,7 +25,7 @@ export default function PostsSection({ posts, onPostsChange }: Props) {
   if (posts.length === 0) {
     return (
       <p className="posts-empty">
-        No posts yet. Write a draft above, then Post to save a snapshot.
+        No notes yet. Write a draft above and save it as a note.
       </p>
     );
   }

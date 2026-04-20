@@ -75,32 +75,6 @@
   min-height: 200px;
 }
 
-.shelf-plank {
-  height: 10px;
-  background:
-    linear-gradient(180deg, #8a6a3d 0%, #6b4f2a 50%, #5a4122 100%);
-  border-radius: 2px;
-  box-shadow:
-    0 2px 4px rgba(26, 23, 48, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.15);
-  margin-top: -2px;
-  position: relative;
-}
-
-.shelf-plank::after {
-  content: '';
-  position: absolute;
-  top: 100%;
-  left: 10%;
-  right: 10%;
-  height: 16px;
-  background: radial-gradient(
-    ellipse at center top,
-    rgba(26, 23, 48, 0.18) 0%,
-    transparent 70%
-  );
-}
-
 .list-view {
   display: none;
   flex-direction: column;

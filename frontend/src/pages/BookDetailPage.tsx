@@ -189,13 +189,13 @@ export default function BookDetailPage() {
               onClick={() => handlePost(getContent, clear)}
               disabled={isEmpty || posting}
             >
-              {posting ? 'Posting...' : 'Post'}
+              {posting ? 'Saving...' : 'Save Note'}
             </button>
           )}
         />
 
         <div className="section-heading section-heading-posts">
-          <h3>Posts</h3>
+          <h3>Notes</h3>
         </div>
         <PostsSection posts={posts} onPostsChange={setPosts} />
       </div>

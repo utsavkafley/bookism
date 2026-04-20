@@ -1,0 +1,128 @@
+.preview-page {
+  max-width: 680px;
+}
+
+.preview-book {
+  display: flex;
+  gap: 28px;
+  margin-bottom: 36px;
+  align-items: flex-start;
+}
+
+.preview-cover {
+  flex-shrink: 0;
+  width: 120px;
+  height: 180px;
+  border-radius: 3px 6px 6px 3px;
+  overflow: hidden;
+  background: var(--bg-card);
+  box-shadow: var(--shadow-book);
+}
+
+.preview-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.preview-cover-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--serif);
+  font-size: 40px;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--accent-bg);
+}
+
+.preview-info h2 {
+  font-family: var(--serif);
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+
+.preview-author {
+  font-size: 16px;
+  color: var(--text-muted);
+  margin: 0 0 12px;
+}
+
+.preview-meta {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 12px;
+  font-size: 13px;
+  font-family: var(--mono);
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.preview-meta dt {
+  font-weight: 500;
+}
+
+/* ---- Add to library section ---- */
+.preview-add {
+  border-top: 1px solid var(--border);
+  padding-top: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 400px;
+}
+
+.status-options {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.status-option {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: none;
+  font-size: 14px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.status-option input[type="radio"] {
+  display: none;
+}
+
+.status-option.selected {
+  border-color: var(--accent);
+  background: var(--accent-bg);
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.year-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+}
+
+.year-row input {
+  width: 90px;
+  padding: 6px 10px;
+  font-family: var(--mono);
+  font-size: 14px;
+}
+
+.preview-error {
+  font-size: 13px;
+  color: var(--danger);
+  margin: 0;
+}

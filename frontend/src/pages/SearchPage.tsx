@@ -1,10 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import {
-  searchBooks,
-  createBook,
-  type SearchResult,
-} from '../api/books';
+import { searchBooks, type SearchResult } from '../api/books';
 import './SearchPage.css';
 
 export default function SearchPage() {
@@ -15,7 +11,6 @@ export default function SearchPage() {
   const [results, setResults] = useState<SearchResult[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [adding, setAdding] = useState<string | null>(null);
 
   useEffect(() => {
     if (query.trim().length < 2) {
@@ -34,25 +29,8 @@ export default function SearchPage() {
     return () => clearTimeout(timer);
   }, [query]);
 
-  async function handleSelect(result: SearchResult) {
-    const key = result.open_library_key || result.title;
-    setAdding(key);
-    try {
-      const book = await createBook({
-        open_library_key: result.open_library_key,
-        title: result.title,
-        author: result.author,
-        cover_url: result.cover_url,
-        page_count: result.page_count,
-        publish_year: result.publish_year,
-        isbn: result.isbn,
-        status: 'to_read',
-      });
-      navigate(`/book/${book.id}`);
-    } catch (e) {
-      setError((e as Error).message);
-      setAdding(null);
-    }
+  function handleSelect(result: SearchResult) {
+    navigate('/book/preview', { state: { result } });
   }
 
   return (
@@ -77,14 +55,11 @@ export default function SearchPage() {
       )}
 
       <div className="search-results">
-        {results.map((r) => {
-          const key = r.open_library_key || r.title;
-          return (
+        {results.map((r) => (
             <button
-              key={key}
-              className={`result-row ${adding === key ? 'adding' : ''}`}
+              key={r.open_library_key || r.title}
+              className="result-row"
               onClick={() => handleSelect(r)}
-              disabled={adding !== null}
             >
               <div className="cover">
                 {r.cover_url ? (
@@ -98,10 +73,8 @@ export default function SearchPage() {
                 {r.author && <p className="author">{r.author}</p>}
                 {r.publish_year && <p className="meta">{r.publish_year}</p>}
               </div>
-              {adding === key && <span className="adding-badge">Adding...</span>}
             </button>
-          );
-        })}
+        ))}
       </div>
     </div>
   );

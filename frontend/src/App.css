@@ -9,8 +9,9 @@
 
 .brand {
   display: flex;
-  align-items: center;
-  gap: 10px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0px;
   color: inherit;
   flex-shrink: 0;
 }
@@ -20,18 +21,99 @@
 }
 
 .brand-logo {
-  width: 36px;
-  height: 36px;
+  width: 128px;
+  height: 128px;
   object-fit: contain;
   display: block;
 }
 
 .brand-name {
   font-family: var(--serif);
-  font-weight: 600;
-  font-size: 22px;
-  letter-spacing: -0.02em;
-  color: var(--text-heading);
+  font-weight: 800;
+  font-size: 24px;
+  letter-spacing: -0.12em;
+  margin-left: 8px;
+  margin-top: -26px;
+  text-shadow: 1px 1px 0px var(--magenta),-1px -1px 0px var(--cobalt);
+  position: relative;
+  display: inline-block;
+}
+
+.brand-name::before,
+.brand-name::after {
+  content: "BOOKISM";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font: inherit;
+  letter-spacing: inherit;
+  text-shadow: none;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.brand-name::before {
+  color: var(--magenta);
+  clip-path: polygon(0 0, 100% 0, 100% 42%, 0 42%);
+}
+
+.brand-name::after {
+  color: var(--cobalt);
+  clip-path: polygon(0 58%, 100% 58%, 100% 100%, 0 100%);
+}
+
+/* Glitch plays once (500ms) then settles — keyframes end at 0 so forwards fill is clean */
+@keyframes glitch-text-before {
+  0%   { opacity: 1; transform: translate(0, 0); }
+  15%  { transform: translate(-3px, 0); }
+  30%  { transform: translate(3px, 0); }
+  50%  { transform: translate(-2px, 0); }
+  70%  { transform: translate(2px, 0); }
+  85%  { transform: translate(0, 0); opacity: 1; }
+  100% { transform: translate(0, 0); opacity: 0; }
+}
+
+@keyframes glitch-text-after {
+  0%   { opacity: 1; transform: translate(0, 0); }
+  15%  { transform: translate(3px, 0); }
+  35%  { transform: translate(-3px, 0); }
+  55%  { transform: translate(2px, 0); }
+  75%  { transform: translate(-2px, 0); }
+  88%  { transform: translate(0, 0); opacity: 1; }
+  100% { transform: translate(0, 0); opacity: 0; }
+}
+
+@keyframes glitch-img-once {
+  0%   { transform: translate(0); filter: none; }
+  12%  { transform: translate(-3px, 1px); filter: hue-rotate(90deg); }
+  25%  { transform: translate(3px, -2px); filter: hue-rotate(-60deg); }
+  40%  { transform: translate(-2px, 2px); filter: hue-rotate(90deg) contrast(1.1); }
+  55%  { transform: translate(2px, -1px); filter: none; }
+  70%  { transform: translate(-1px, 1px); }
+  85%  { transform: translate(0); filter: none; }
+  100% { transform: translate(0); filter: none; }
+}
+
+.brand:hover .brand-name::before {
+  animation: glitch-text-before 0.5s steps(2, end) 1 forwards;
+}
+
+.brand:hover .brand-name::after {
+  animation: glitch-text-after 0.5s steps(2, end) 1 forwards;
+}
+
+.brand:hover .brand-logo {
+  animation: glitch-img-once 0.5s steps(2, end) 1 forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand:hover .brand-name::before,
+  .brand:hover .brand-name::after,
+  .brand:hover .brand-logo {
+    animation: none;
+  }
 }
 
 .user-info {

@@ -5,6 +5,7 @@ import AuthCallbackPage from './pages/AuthCallbackPage';
 import LibraryPage from './pages/LibraryPage';
 import SearchPage from './pages/SearchPage';
 import BookDetailPage from './pages/BookDetailPage';
+import BookPreviewPage from './pages/BookPreviewPage';
 import SearchBar from './components/SearchBar';
 import logoUrl from './assets/bookism-logo.png';
 import './App.css';
@@ -17,12 +18,14 @@ function AppLayout() {
       <header className="app-header">
         <Link to="/library" className="brand">
           <img src={logoUrl} alt="" className="brand-logo" />
-          <span className="brand-name">Bookism</span>
+          <span className="brand-name">BOOKISM</span>
         </Link>
         <SearchBar />
         {user && (
           <div className="user-info">
-            {user.avatar_url && <img src={user.avatar_url} alt="" />}
+            {user.avatar_url && (
+              <img src={user.avatar_url} alt="" referrerPolicy="no-referrer" />
+            )}
             <button onClick={logout}>Log out</button>
           </div>
         )}
@@ -30,6 +33,7 @@ function AppLayout() {
       <Routes>
         <Route path="/library" element={<LibraryPage />} />
         <Route path="/search" element={<SearchPage />} />
+        <Route path="/book/preview" element={<BookPreviewPage />} />
         <Route path="/book/:id" element={<BookDetailPage />} />
         <Route path="*" element={<Navigate to="/library" replace />} />
       </Routes>

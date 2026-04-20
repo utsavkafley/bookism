@@ -1,10 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  searchBooks,
-  createBook,
-  type SearchResult,
-} from '../api/books';
+import { searchBooks, type SearchResult } from '../api/books';
 import './SearchBar.css';
 
 const isMac = typeof navigator !== 'undefined' && /Mac/i.test(navigator.platform);
@@ -15,7 +11,6 @@ export default function SearchBar() {
   const [results, setResults] = useState<SearchResult[]>([]);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [adding, setAdding] = useState(false);
   const [activeIdx, setActiveIdx] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
@@ -63,26 +58,11 @@ export default function SearchBar() {
     return () => document.removeEventListener('mousedown', handler);
   }, []);
 
-  async function pickResult(result: SearchResult) {
-    setAdding(true);
-    try {
-      const book = await createBook({
-        open_library_key: result.open_library_key,
-        title: result.title,
-        author: result.author,
-        cover_url: result.cover_url,
-        page_count: result.page_count,
-        publish_year: result.publish_year,
-        isbn: result.isbn,
-        status: 'to_read',
-      });
-      setQuery('');
-      setResults([]);
-      setOpen(false);
-      navigate(`/book/${book.id}`);
-    } finally {
-      setAdding(false);
-    }
+  function pickResult(result: SearchResult) {
+    setQuery('');
+    setResults([]);
+    setOpen(false);
+    navigate('/book/preview', { state: { result } });
   }
 
   function handleKey(e: React.KeyboardEvent<HTMLInputElement>) {
@@ -121,7 +101,6 @@ export default function SearchBar() {
         }}
         onFocus={() => setOpen(true)}
         onKeyDown={handleKey}
-        disabled={adding}
       />
 
       {showDropdown && (
@@ -141,7 +120,6 @@ export default function SearchBar() {
                 className={`dropdown-item ${idx === activeIdx ? 'active' : ''}`}
                 onMouseEnter={() => setActiveIdx(idx)}
                 onClick={() => pickResult(r)}
-                disabled={adding}
               >
                 <div className="dd-cover">
                   {r.cover_url ? (
