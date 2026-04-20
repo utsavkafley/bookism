@@ -1,0 +1,31 @@
+.login-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+}
+
+.login-card {
+  text-align: center;
+  padding: 48px;
+}
+
+.login-card h1 {
+  font-size: 48px;
+  letter-spacing: -1px;
+  margin-bottom: 8px;
+}
+
+.login-card p {
+  color: var(--text-muted);
+  margin-bottom: 32px;
+  font-size: 18px;
+}
+
+.google-btn {
+  background: var(--accent);
+  color: #fff;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 500;
+}
