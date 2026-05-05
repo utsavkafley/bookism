@@ -114,12 +114,16 @@ async def google_auth(body: dict, db: Session = Depends(get_db)):
     }
 
 
+def _cover_url_from_key(open_library_key: str) -> str:
+    olid = open_library_key.split("/")[-1]
+    return f"https://covers.openlibrary.org/b/olid/{olid}-L.jpg"
+
+
 DEMO_BOOKS = [
     {
         "title": "Middlemarch",
         "author": "George Eliot",
         "open_library_key": "/works/OL109864W",
-        "cover_url": "https://covers.openlibrary.org/b/id/8739161-L.jpg",
         "page_count": 904,
         "publish_year": 1871,
         "status": "finished",
@@ -129,7 +133,6 @@ DEMO_BOOKS = [
         "title": "Beloved",
         "author": "Toni Morrison",
         "open_library_key": "/works/OL46404W",
-        "cover_url": "https://covers.openlibrary.org/b/id/8228691-L.jpg",
         "page_count": 321,
         "publish_year": 1987,
         "status": "finished",
@@ -139,7 +142,6 @@ DEMO_BOOKS = [
         "title": "The Remains of the Day",
         "author": "Kazuo Ishiguro",
         "open_library_key": "/works/OL45804W",
-        "cover_url": "https://covers.openlibrary.org/b/id/8254091-L.jpg",
         "page_count": 258,
         "publish_year": 1989,
         "status": "finished",
@@ -149,9 +151,8 @@ DEMO_BOOKS = [
         "title": "Animal Farm",
         "author": "George Orwell",
         "open_library_key": "/works/OL37800334M",
-        "cover_url": "https://covers.openlibrary.org/b/id/12707885-L.jpg",
         "page_count": 140,
-        "publish_year": 1996,
+        "publish_year": 1945,
         "status": "finished",
         "year_read": 2024,
     },
@@ -159,7 +160,6 @@ DEMO_BOOKS = [
         "title": "Pachinko",
         "author": "Min Jin Lee",
         "open_library_key": "/works/OL17811965W",
-        "cover_url": "https://covers.openlibrary.org/b/id/10519874-L.jpg",
         "page_count": 496,
         "publish_year": 2017,
         "status": "to_read",
@@ -204,7 +204,11 @@ def ensure_demo_user(db: Session) -> User:
     db.refresh(user)
 
     for b in DEMO_BOOKS:
-        db.add(Book(user_id=user.id, **b))
+        db.add(Book(
+            user_id=user.id,
+            cover_url=_cover_url_from_key(b["open_library_key"]),
+            **b,
+        ))
     db.commit()
 
     return user
