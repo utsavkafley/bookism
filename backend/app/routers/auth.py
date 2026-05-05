@@ -1,5 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
+from pydantic import BaseModel
 from sqlalchemy.orm import Session
+import bcrypt
 import httpx
 
 from app.database import get_db
@@ -9,6 +11,41 @@ from app.auth import create_token
 from app.config import GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, FRONTEND_URL
 
 router = APIRouter(prefix="/auth", tags=["auth"])
+
+DEMO_PASSWORD = "demo1234"
+
+
+def _hash_password(password: str) -> str:
+    return bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
+
+
+def _verify_password(password: str, hashed: str) -> bool:
+    return bcrypt.checkpw(password.encode(), hashed.encode())
+
+
+class LoginRequest(BaseModel):
+    email: str
+    password: str
+
+
+@router.post("/login")
+def password_login(body: LoginRequest, db: Session = Depends(get_db)):
+    user = db.query(User).filter(User.email == body.email).first()
+    if not user or not user.password_hash:
+        raise HTTPException(status_code=401, detail="Invalid credentials")
+    if not _verify_password(body.password, user.password_hash):
+        raise HTTPException(status_code=401, detail="Invalid credentials")
+
+    token = create_token(user.id)
+    return {
+        "token": token,
+        "user": {
+            "id": user.id,
+            "email": user.email,
+            "name": user.name,
+            "avatar_url": user.avatar_url,
+        },
+    }
 
 
 @router.post("/google")
@@ -131,28 +168,55 @@ DEMO_BOOKS = [
 ]
 
 
+def ensure_demo_user(db: Session) -> User:
+    # Check by new identity first, then fall back to old demo marker
+    user = (
+        db.query(User).filter(User.email == "johndoe@bookism.app").first()
+        or db.query(User).filter(User.google_id == "demo").first()
+    )
+
+    if user:
+        # Upgrade in-place if this is the old demo user identity
+        changed = False
+        if user.email != "johndoe@bookism.app":
+            user.email = "johndoe@bookism.app"
+            changed = True
+        if user.name != "John Doe":
+            user.name = "John Doe"
+            changed = True
+        if not user.password_hash:
+            user.password_hash = _hash_password(DEMO_PASSWORD)
+            changed = True
+        if changed:
+            db.commit()
+            db.refresh(user)
+        return user
+
+    user = User(
+        google_id="demo",
+        email="johndoe@bookism.app",
+        name="John Doe",
+        avatar_url=None,
+        password_hash=_hash_password(DEMO_PASSWORD),
+    )
+    db.add(user)
+    db.commit()
+    db.refresh(user)
+
+    for b in DEMO_BOOKS:
+        db.add(Book(user_id=user.id, **b))
+    db.commit()
+
+    return user
+
+
 @router.post("/demo")
 def demo_auth(db: Session = Depends(get_db)):
     """
-    Signs the caller in as a shared demo user. Intended for recruiters /
-    portfolio visitors who want to poke around without connecting Google.
+    Signs the caller in as the shared demo user (johndoe).
+    Creates the user + seed books on first call.
     """
-    user = db.query(User).filter(User.google_id == "demo").first()
-    if not user:
-        user = User(
-            google_id="demo",
-            email="demo@bookism.app",
-            name="Demo Reader",
-            avatar_url=None,
-        )
-        db.add(user)
-        db.commit()
-        db.refresh(user)
-
-        for b in DEMO_BOOKS:
-            db.add(Book(user_id=user.id, **b))
-        db.commit()
-
+    user = ensure_demo_user(db)
     jwt_token = create_token(user.id)
     return {
         "token": jwt_token,
